@@ -68,6 +68,38 @@ class _HomePageState extends State<HomePage> {
                     trailing: IconButton(
                       onPressed: () {
                         // 삭제 버튼 클릭시
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return CupertinoAlertDialog(
+                              title: Text("Delete?"),
+                              content: Text("Are you sure want to delete?"),
+                              actions: [
+                                // 취소 버튼
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("Cancel"),
+                                ),
+                                // 삭제 버튼
+                                TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      // index에 해당하는 항목 삭제
+                                      toDoList.removeAt(index);
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    "Delete",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
                       icon: Icon(CupertinoIcons.delete),
                     ),
