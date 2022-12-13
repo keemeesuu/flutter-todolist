@@ -19,15 +19,9 @@ No SQLite, No Provider.
 
 ## ✨ Introduce
 
-기본적인 CRUD의 기능이다.
-List<Class> 리스트 타입을 사용해 instance로 데이터를 추가한다.
+단순한 CRUD(Creat, Read, Update, Delete)기능이며 단순 메모리에 한다.  
+List<Class> 리스트 타입을 사용해 instance로 데이터를 추가한다.  
 
-<br>
-
-## ✨ 기능 소개
-
-단순한 CRUD(Creat, Read, Update, Delete)기능이며 저장은 메모리에 한다.
-다이어로그
 
 <br>
 
