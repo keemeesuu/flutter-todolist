@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,17 +28,26 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+class Todo {
+  String text; // 할 일
+  bool isDone; // 완료 여부
+
+  Todo(this.text, this.isDone);
+}
+
 class _HomePageState extends State<HomePage> {
-  /// Do-Do List 데이터 목록. Data List
-  List<String> toDoList = ['study', 'study1', 'study2'];
+  /// Do-Do List 데이터 전체 목록. Data List
+  List<Todo> toDoList = [];
 
   @override
   Widget build(BuildContext context) {
+    for (int i = 0; i < toDoList.length; i++) {
+      print("text : ${toDoList[i].text}, isDone : ${toDoList[i].isDone}");
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "To-Do List",
-        ),
+        title: Text("To-Do List"),
       ),
       body: Center(
         child: toDoList.isEmpty
@@ -44,11 +55,27 @@ class _HomePageState extends State<HomePage> {
             : ListView.builder(
                 itemCount: toDoList.length,
                 itemBuilder: (BuildContext context, int index) {
+                  Todo todo = toDoList[index]; // index에 해당하는 todo 가져오기
                   return ListTile(
-                    title: Text(toDoList[index]),
-                    trailing: Icon(CupertinoIcons.delete),
+                    title: Text(
+                      toDoList[index].text,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: todo.isDone ? Colors.grey : Colors.black,
+                      ),
+                    ),
+                    // 삭제 아이콘 버튼
+                    trailing: IconButton(
+                      onPressed: () {
+                        // 삭제 버튼 클릭시
+                      },
+                      icon: Icon(CupertinoIcons.delete),
+                    ),
                     onTap: () {
-                      return print("Click");
+                      // 리스트 클릭시
+                      setState(() {
+                        todo.isDone = !todo.isDone;
+                      });
                     },
                   );
                 },
@@ -57,6 +84,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(CupertinoIcons.add),
         onPressed: () async {
+          // 버튼 클릭시 투두 리스트 생성 페이지로 이동
           String? todo = await Navigator.push(
             context,
             MaterialPageRoute(
@@ -65,7 +93,8 @@ class _HomePageState extends State<HomePage> {
           );
           if (todo != null) {
             setState(() {
-              toDoList.add(todo);
+              Todo newTodo = Todo(todo, false);
+              toDoList.add(newTodo);
             });
           }
           // print("return value : $todo");
