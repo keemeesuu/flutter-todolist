@@ -56,13 +56,19 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(CupertinoIcons.add),
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          String? todo = await Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => CreatePage(),
             ),
           );
+          if (todo != null) {
+            setState(() {
+              toDoList.add(todo);
+            });
+          }
+          // print("return value : $todo");
         },
       ),
     );
@@ -106,7 +112,8 @@ class _CreatePageState extends State<CreatePage> {
                 onPressed: textControll.text.isEmpty
                     ? null
                     : () {
-                        print(textControll.text);
+                        // print(textControll.text);
+                        Navigator.pop(context, textControll.text);
                       },
               ),
             ),
