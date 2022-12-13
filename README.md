@@ -39,7 +39,7 @@ List<Class> 리스트 타입을 사용해 instance로 데이터를 추가한다.
     TextEditingController
 
 
-## 기록
+## ✨ 기록
 
 ### Refactoring
 
