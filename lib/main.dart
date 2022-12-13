@@ -104,8 +104,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<dynamic> showDeleteDialog(BuildContext context, int index) {
-    return showDialog(
+  void showDeleteDialog(BuildContext context, int index) {
+    showDialog(
       context: context,
       builder: (context) {
         return CupertinoAlertDialog(
