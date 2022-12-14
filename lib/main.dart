@@ -92,6 +92,7 @@ class _HomePageState extends State<HomePage> {
               builder: (context) => CreatePage(),
             ),
           );
+          // CreatePage() 에서 Navigator.pop(context) 실행 시 실행됨.
           if (todo != null) {
             setState(() {
               Todo newTodo = Todo(todo, false);
